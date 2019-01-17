@@ -22,5 +22,12 @@
 * SOFTWARE.
 */
 
-pub mod vector;
-pub mod number_traits;
+pub trait Zero {
+    fn zero() -> Self;
+}
+
+impl Zero for i32 {
+    fn zero() -> Self {
+        0i32
+    }
+}
