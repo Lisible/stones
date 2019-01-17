@@ -23,4 +23,3 @@
 */
 
 pub mod vector;
-pub mod number_traits;
