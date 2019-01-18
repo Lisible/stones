@@ -22,6 +22,61 @@
 * SOFTWARE.
 */
 
-pub mod vector;
-pub mod matrix;
-pub mod number_traits;
+/// Trait for getting the 0 value of the type implementing the trait
+pub trait Zero {
+    fn zero() -> Self;
+}
+
+impl Zero for i32 {
+    fn zero() -> Self {
+        0i32
+    }
+}
+
+impl Zero for i64 {
+    fn zero() -> Self {
+        0i64
+    }
+}
+
+impl Zero for f32 {
+    fn zero() -> Self {
+        0f32
+    }
+}
+
+impl Zero for f64 {
+    fn zero() -> Self {
+        0f64
+    }
+}
+
+
+/// Trait for getting the 1 value of the type implementing the trait
+pub trait One {
+    fn one() -> Self;
+}
+
+impl One for i32 {
+    fn one() -> Self {
+        1i32
+    }
+}
+
+impl One for i64 {
+    fn one() -> Self {
+        1i64
+    }
+}
+
+impl One for f32 {
+    fn one() -> Self {
+        1f32
+    }
+}
+
+impl One for f64 {
+    fn one() -> Self {
+        1f64
+    }
+}

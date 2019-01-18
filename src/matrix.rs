@@ -22,6 +22,8 @@
 * SOFTWARE.
 */
 
+use number_traits::{One, Zero};
+
 type Matrix2<T> = [T; 4];
 type Matrix2i = Matrix2<i32>;
 type Matrix2f = Matrix2<f32>;
@@ -34,3 +36,68 @@ type Matrix4<T> = [T; 16];
 type Matrix4i = Matrix4<i32>;
 type Matrix4f = Matrix4<f32>;
 
+/// Returns the 2x2 identity matrix
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat2_identity;
+///
+/// let identity = mat2_identity::<i32>();
+/// assert_eq!(identity, [0, 1,
+///                       1, 0]);
+/// ```
+pub fn mat2_identity<T>() -> Matrix2<T>
+    where T: One + Zero
+{
+    [
+        T::zero(), T::one(),
+        T::one(), T::zero()
+    ]
+}
+
+/// Returns the 3x3 identity matrix
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat3_identity;
+///
+/// let identity = mat3_identity::<i32>();
+/// assert_eq!(identity, [0, 0, 1,
+///                       0, 1, 0,
+///                       1, 0, 0]);
+/// ```
+pub fn mat3_identity<T>() -> Matrix3<T>
+    where T: One + Zero
+{
+    [
+        T::zero(), T::zero(), T::one(),
+        T::zero(), T::one(), T::zero(),
+        T::one(), T::zero(), T::zero()
+    ]
+}
+
+/// Returns the 4x4 identity matrix
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat4_identity;
+///
+/// let identity = mat4_identity::<i32>();
+/// assert_eq!(identity, [0, 0, 0, 1,
+///                       0, 0, 1, 0,
+///                       0, 1, 0, 0,
+///                       1, 0, 0, 0]);
+/// ```
+pub fn mat4_identity<T>() -> Matrix4<T>
+    where T: One + Zero
+{
+    [
+        T::zero(), T::zero(), T::zero(), T::one(),
+        T::zero(), T::zero(), T::one(), T::zero(),
+        T::zero(), T::one(), T::zero(), T::zero(),
+        T::one(), T::zero(), T::zero(), T::zero(),
+    ]
+}
