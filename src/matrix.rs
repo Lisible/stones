@@ -23,6 +23,7 @@
 */
 
 use std::ops::{Add, Sub, Mul};
+use crate::vector::Vector4;
 use crate::number_traits::{One, Zero};
 
 pub type Matrix2<T> = [T; 4];
@@ -45,15 +46,15 @@ pub type Matrix4f = Matrix4<f32>;
 /// use stones::matrix::mat2_identity;
 ///
 /// let identity = mat2_identity::<i32>();
-/// assert_eq!(identity, [0, 1,
-///                       1, 0]);
+/// assert_eq!(identity, [1, 0,
+///                       0, 1]);
 /// ```
 pub fn mat2_identity<T>() -> Matrix2<T>
     where T: One + Zero
 {
     [
-        T::zero(), T::one(),
-        T::one(), T::zero()
+        T::one(), T::zero(),
+        T::zero(), T::one()
     ]
 }
 
@@ -65,17 +66,17 @@ pub fn mat2_identity<T>() -> Matrix2<T>
 /// use stones::matrix::mat3_identity;
 ///
 /// let identity = mat3_identity::<i32>();
-/// assert_eq!(identity, [0, 0, 1,
+/// assert_eq!(identity, [1, 0, 0,
 ///                       0, 1, 0,
-///                       1, 0, 0]);
+///                       0, 0, 1]);
 /// ```
 pub fn mat3_identity<T>() -> Matrix3<T>
     where T: One + Zero
 {
     [
-        T::zero(), T::zero(), T::one(),
+        T::one(), T::zero(), T::zero(),
         T::zero(), T::one(), T::zero(),
-        T::one(), T::zero(), T::zero()
+        T::zero(), T::zero(), T::one()
     ]
 }
 
@@ -87,19 +88,19 @@ pub fn mat3_identity<T>() -> Matrix3<T>
 /// use stones::matrix::mat4_identity;
 ///
 /// let identity = mat4_identity::<i32>();
-/// assert_eq!(identity, [0, 0, 0, 1,
-///                       0, 0, 1, 0,
+/// assert_eq!(identity, [1, 0, 0, 0,
 ///                       0, 1, 0, 0,
-///                       1, 0, 0, 0]);
+///                       0, 0, 1, 0,
+///                       0, 0, 0, 1]);
 /// ```
 pub fn mat4_identity<T>() -> Matrix4<T>
     where T: One + Zero
 {
     [
-        T::zero(), T::zero(), T::zero(), T::one(),
-        T::zero(), T::zero(), T::one(), T::zero(),
-        T::zero(), T::one(), T::zero(), T::zero(),
         T::one(), T::zero(), T::zero(), T::zero(),
+        T::zero(), T::one(), T::zero(), T::zero(),
+        T::zero(), T::zero(), T::one(), T::zero(),
+        T::zero(), T::zero(), T::zero(), T::one(),
     ]
 }
 
@@ -445,5 +446,44 @@ pub fn mat4_mul<T>(lhs: Matrix4<T>, rhs: Matrix4<T>) -> Matrix4<T>
         lhs[12] * rhs[1] + lhs[13] * rhs[5] + lhs[14] * rhs[9] + lhs[15] * rhs[13],
         lhs[12] * rhs[2] + lhs[13] * rhs[6] + lhs[14] * rhs[10] + lhs[15] * rhs[14],
         lhs[12] * rhs[3] + lhs[13] * rhs[7] + lhs[14] * rhs[11] + lhs[15] * rhs[15]
+    ]
+}
+
+/// Transforms a vector using a 4x4 matrix
+///
+/// # Examples
+///
+/// Identity
+/// ```
+/// use stones::matrix::mat4_transform_vec;
+/// use stones::matrix::mat4_identity;
+///
+/// let m = mat4_identity();
+/// let v = [5, 7, 2, 3];
+///
+/// assert_eq!(mat4_transform_vec(m, v), [5, 7, 2, 3]);
+/// ```
+///
+/// Scaling
+/// ```
+/// use stones::matrix::mat4_transform_vec;
+/// use stones::matrix::mat4_identity;
+///
+/// let m = [3, 0, 0, 0,
+///          0, 2, 0, 0,
+///          0, 0, 1, 0,
+///          0, 0, 0, 1];
+/// let v = [5, 7, 2, 3];
+///
+/// assert_eq!(mat4_transform_vec(m, v), [15, 14, 2, 3]);
+/// ```
+pub fn mat4_transform_vec<T>(lhs: Matrix4<T>, rhs: Vector4<T>) -> Vector4<T>
+    where T: Copy + Mul<Output=T> + Add<Output=T>
+{
+    [
+        lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2] + lhs[3] * rhs[3],
+        lhs[4] * rhs[0] + lhs[5] * rhs[1] + lhs[6] * rhs[2] + lhs[7] * rhs[3],
+        lhs[8] * rhs[0] + lhs[9] * rhs[1] + lhs[10] * rhs[2] + lhs[11] * rhs[3],
+        lhs[12] * rhs[0] + lhs[13] * rhs[1] + lhs[14] * rhs[2] + lhs[15] * rhs[3]
     ]
 }
