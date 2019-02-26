@@ -339,3 +339,111 @@ pub fn mat4_scale<T>(lhs: Matrix4<T>, rhs: T) -> Matrix4<T>
         lhs[12] * rhs, lhs[13] * rhs, lhs[14] * rhs, lhs[15] * rhs,
     ]
 }
+
+/// Multiplies two 2x2 matrices together
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat2_mul;
+///
+/// let m1 = [1, 2,
+///           3, 4];
+/// let m2 = [5, 6,
+///           7, 8];
+///
+/// assert_eq!(mat2_mul(m1, m2), [19, 22,
+///                               43, 50]);
+/// ```
+pub fn mat2_mul<T>(lhs: Matrix2<T>, rhs: Matrix2<T>) -> Matrix2<T>
+    where T: Copy + Mul<Output=T> + Add<Output=T>
+{
+    [
+        lhs[0] * rhs[0] + lhs[1] * rhs[2], lhs[0] * rhs[1] + lhs[1] * rhs[3],
+        lhs[2] * rhs[0] + lhs[3] * rhs[2], lhs[2] * rhs[1] + lhs[3] * rhs[3]
+    ]
+}
+
+
+/// Multiplies two 3x3 matrices together
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat3_mul;
+///
+/// let m1 = [1, 2, 3,
+///           4, 5, 6,
+///           7, 8, 9];
+/// let m2 = [10, 11, 12,
+///           13, 14, 15,
+///           16, 17, 18];
+///
+/// assert_eq!(mat3_mul(m1, m2), [84, 90, 96,
+///                               201, 216, 231,
+///                               318, 342, 366]);
+/// ```
+pub fn mat3_mul<T>(lhs: Matrix3<T>, rhs: Matrix3<T>) -> Matrix3<T>
+    where T: Copy + Mul<Output=T> + Add<Output=T>
+{
+    [
+        lhs[0] * rhs[0] + lhs[1] * rhs[3] + lhs[2] * rhs[6],
+        lhs[0] * rhs[1] + lhs[1] * rhs[4] + lhs[2] * rhs[7],
+        lhs[0] * rhs[2] + lhs[1] * rhs[5] + lhs[2] * rhs[8],
+
+        lhs[3] * rhs[0] + lhs[4] * rhs[3] + lhs[5] * rhs[6],
+        lhs[3] * rhs[1] + lhs[4] * rhs[4] + lhs[5] * rhs[7],
+        lhs[3] * rhs[2] + lhs[4] * rhs[5] + lhs[5] * rhs[8],
+
+        lhs[6] * rhs[0] + lhs[7] * rhs[3] + lhs[8] * rhs[6],
+        lhs[6] * rhs[1] + lhs[7] * rhs[4] + lhs[8] * rhs[7],
+        lhs[6] * rhs[2] + lhs[7] * rhs[5] + lhs[8] * rhs[8]
+    ]
+}
+
+/// Multiplies two 4x4 matrices together
+///
+/// # Examples
+///
+/// ```
+/// use stones::matrix::mat4_mul;
+///
+/// let m1 = [1, 2, 3, 4,
+///           5, 6, 7, 8,
+///           9, 10, 11, 12,
+///           13, 14, 15, 16];
+/// let m2 = [17, 18, 19, 20,
+///           21, 22, 23, 24,
+///           25, 26, 27, 28,
+///           29, 30, 31, 32];
+///
+/// assert_eq!(mat4_mul(m1, m2), [250, 260, 270, 280,
+///                               618, 644, 670, 696,
+///                               986, 1028, 1070, 1112,
+///                               1354, 1412, 1470, 1528]);
+/// ```
+pub fn mat4_mul<T>(lhs: Matrix4<T>, rhs: Matrix4<T>) -> Matrix4<T>
+    where T: Copy + Mul<Output=T> + Add<Output=T>
+{
+    [
+        lhs[0] * rhs[0] + lhs[1] * rhs[4] + lhs[2] * rhs[8] + lhs[3] * rhs[12],
+        lhs[0] * rhs[1] + lhs[1] * rhs[5] + lhs[2] * rhs[9] + lhs[3] * rhs[13],
+        lhs[0] * rhs[2] + lhs[1] * rhs[6] + lhs[2] * rhs[10] + lhs[3] * rhs[14],
+        lhs[0] * rhs[3] + lhs[1] * rhs[7] + lhs[2] * rhs[11] + lhs[3] * rhs[15],
+
+        lhs[4] * rhs[0] + lhs[5] * rhs[4] + lhs[6] * rhs[8] + lhs[7] * rhs[12],
+        lhs[4] * rhs[1] + lhs[5] * rhs[5] + lhs[6] * rhs[9] + lhs[7] * rhs[13],
+        lhs[4] * rhs[2] + lhs[5] * rhs[6] + lhs[6] * rhs[10] + lhs[7] * rhs[14],
+        lhs[4] * rhs[3] + lhs[5] * rhs[7] + lhs[6] * rhs[11] + lhs[7] * rhs[15],
+
+        lhs[8] * rhs[0] + lhs[9] * rhs[4] + lhs[10] * rhs[8] + lhs[11] * rhs[12],
+        lhs[8] * rhs[1] + lhs[9] * rhs[5] + lhs[10] * rhs[9] + lhs[11] * rhs[13],
+        lhs[8] * rhs[2] + lhs[9] * rhs[6] + lhs[10] * rhs[10] + lhs[11] * rhs[14],
+        lhs[8] * rhs[3] + lhs[9] * rhs[7] + lhs[10] * rhs[11] + lhs[11] * rhs[15],
+
+        lhs[12] * rhs[0] + lhs[13] * rhs[4] + lhs[14] * rhs[8] + lhs[15] * rhs[12],
+        lhs[12] * rhs[1] + lhs[13] * rhs[5] + lhs[14] * rhs[9] + lhs[15] * rhs[13],
+        lhs[12] * rhs[2] + lhs[13] * rhs[6] + lhs[14] * rhs[10] + lhs[15] * rhs[14],
+        lhs[12] * rhs[3] + lhs[13] * rhs[7] + lhs[14] * rhs[11] + lhs[15] * rhs[15]
+    ]
+}
