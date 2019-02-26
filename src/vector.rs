@@ -22,6 +22,7 @@
 * SOFTWARE.
 */
 
+use crate::number_traits::Zero;
 use std::ops::{Add, Sub, Mul};
 
 pub type Vector2<T> = [T; 2];
@@ -225,4 +226,84 @@ pub fn vec4_mul<T>(lhs: Vector4<T>, rhs: T) -> Vector4<T>
         lhs[2] * rhs,
         lhs[3] * rhs
     ]
+}
+
+/// Calculates the dot product of two Vector2<T>
+///
+/// # Examples
+///
+/// ```
+/// use stones::vector::vec2_dot;
+///
+/// let v1 = [0.6, -0.8];
+/// let v2 = [0.0, 1.0];
+/// assert_eq!(vec2_dot(v1, v2), -0.8);
+/// ```
+pub fn vec2_dot<T>(lhs: Vector2<T>, rhs: Vector2<T>) -> T
+    where T: Zero + Copy + Mul<Output=T> + Add<Output=T>
+{
+    dot_product(lhs.iter(), rhs.iter())
+}
+
+/// Calculates the dot product of two Vector3<T>
+///
+/// # Examples
+///
+/// ```
+/// use stones::vector::vec3_dot;
+///
+/// let v1 = [0.6, -0.8, 2.0];
+/// let v2 = [0.0, 1.0, 1.0];
+/// assert_eq!(vec3_dot(v1, v2), 1.2);
+/// ```
+pub fn vec3_dot<T>(lhs: Vector3<T>, rhs: Vector3<T>) -> T
+    where T: Zero + Copy + Mul<Output=T> + Add<Output=T>
+{
+    dot_product(lhs.iter(), rhs.iter())
+}
+
+/// Calculates the dot product of two Vector2<T>
+///
+/// # Examples
+///
+/// ```
+/// use stones::vector::vec4_dot;
+///
+/// let v1 = [0.6, -0.8, 2.1, 3.2];
+/// let v2 = [0.0, 1.0, 1.5, 1.9];
+/// assert_eq!(vec4_dot(v1, v2), 8.43);
+/// ```
+pub fn vec4_dot<T>(lhs: Vector4<T>, rhs: Vector4<T>) -> T
+    where T: Zero + Copy + Mul<Output=T> + Add<Output=T>
+{
+    dot_product(lhs.iter(), rhs.iter())
+}
+
+/// Calculates the cross product of two Vector3<T>
+///
+/// # Examples
+///
+/// ```
+/// use stones::vector::vec3_cross;
+///
+/// let v1 = [1, 0, 0];
+/// let v2 = [0, 1, 0];
+/// assert_eq!(vec3_cross(v1, v2), [0, 0, 1]);
+/// ```
+pub fn vec3_cross<T>(lhs: Vector3<T>, rhs: Vector3<T>) -> Vector3<T>
+    where T: Copy + Mul<Output=T> + Sub<Output=T>
+{
+    [
+        lhs[1] * rhs[2] - lhs[2] * rhs[1],
+        lhs[2] * rhs[0] - lhs[0] * rhs[2],
+        lhs[0] * rhs[1] - lhs[1] * rhs[0]
+    ]
+}
+
+
+fn dot_product<T>(lhs: std::slice::Iter<T>, rhs: std::slice::Iter<T>) -> T 
+    where T: Zero + Copy + Mul<Output=T> + Add<Output=T>
+{
+    lhs.zip(rhs)
+        .fold(T::zero(), |acc, (&a, &b)| acc + a * b)
 }

@@ -23,19 +23,19 @@
 */
 
 use std::ops::{Add, Sub, Mul};
-use number_traits::{One, Zero};
+use crate::number_traits::{One, Zero};
 
-type Matrix2<T> = [T; 4];
-type Matrix2i = Matrix2<i32>;
-type Matrix2f = Matrix2<f32>;
+pub type Matrix2<T> = [T; 4];
+pub type Matrix2i = Matrix2<i32>;
+pub type Matrix2f = Matrix2<f32>;
 
-type Matrix3<T> = [T; 9];
-type Matrix3i = Matrix3<i32>;
-type Matrix3f = Matrix3<f32>;
+pub type Matrix3<T> = [T; 9];
+pub type Matrix3i = Matrix3<i32>;
+pub type Matrix3f = Matrix3<f32>;
 
-type Matrix4<T> = [T; 16];
-type Matrix4i = Matrix4<i32>;
-type Matrix4f = Matrix4<f32>;
+pub type Matrix4<T> = [T; 16];
+pub type Matrix4i = Matrix4<i32>;
+pub type Matrix4f = Matrix4<f32>;
 
 /// Returns the 2x2 identity matrix
 ///
