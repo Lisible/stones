@@ -270,15 +270,15 @@ pub fn mat4_sub<T>(lhs: Matrix4<T>, rhs: Matrix4<T>) -> Matrix4<T>
 /// # Examples
 ///
 /// ```
-/// use stones::matrix::mat2_mul;
+/// use stones::matrix::mat2_scale;
 ///
 /// let m = [1, 2,
 ///          3, 4];
 /// let scalar = 2;
-/// assert_eq!(mat2_mul(m, scalar), [2, 4,
+/// assert_eq!(mat2_scale(m, scalar), [2, 4,
 ///                                  6, 8]);
 /// ```
-pub fn mat2_mul<T>(lhs: Matrix2<T>, rhs: T) -> Matrix2<T>
+pub fn mat2_scale<T>(lhs: Matrix2<T>, rhs: T) -> Matrix2<T>
     where T: Copy + Mul<Output=T>
 {
     [
@@ -292,17 +292,17 @@ pub fn mat2_mul<T>(lhs: Matrix2<T>, rhs: T) -> Matrix2<T>
 /// # Examples
 ///
 /// ```
-/// use stones::matrix::mat3_mul;
+/// use stones::matrix::mat3_scale;
 ///
 /// let m = [1, 2, 3,
 ///          4, 5, 6,
 ///          7, 8, 9];
 /// let scalar = 2;
-/// assert_eq!(mat3_mul(m, scalar), [2, 4, 6,
+/// assert_eq!(mat3_scale(m, scalar), [2, 4, 6,
 ///                                  8, 10, 12,
 ///                                  14, 16, 18]);
 /// ```
-pub fn mat3_mul<T>(lhs: Matrix3<T>, rhs: T) -> Matrix3<T>
+pub fn mat3_scale<T>(lhs: Matrix3<T>, rhs: T) -> Matrix3<T>
     where T: Copy + Mul<Output=T>
 {
     [
@@ -317,19 +317,19 @@ pub fn mat3_mul<T>(lhs: Matrix3<T>, rhs: T) -> Matrix3<T>
 /// # Examples
 ///
 /// ```
-/// use stones::matrix::mat4_mul;
+/// use stones::matrix::mat4_scale;
 ///
 /// let m = [1, 2, 3, 4,
 ///          5, 6, 7, 8,
 ///          9, 10, 11, 12,
 ///          13, 14, 15, 16];
 /// let scalar = 2;
-/// assert_eq!(mat4_mul(m, scalar), [2, 4, 6, 8,
+/// assert_eq!(mat4_scale(m, scalar), [2, 4, 6, 8,
 ///                                  10, 12, 14, 16,
 ///                                  18, 20, 22, 24,
 ///                                  26, 28, 30, 32]);
 /// ```
-pub fn mat4_mul<T>(lhs: Matrix4<T>, rhs: T) -> Matrix4<T>
+pub fn mat4_scale<T>(lhs: Matrix4<T>, rhs: T) -> Matrix4<T>
     where T: Copy + Mul<Output=T>
 {
     [
